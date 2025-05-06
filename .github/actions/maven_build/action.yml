@@ -1,8 +1,8 @@
-name: Replace-With-Your-Action-Name
-description: Replace-With-Your-Action-Description
+name: Build with Maven
+description: Run the pom.xml
 runs:
   using: composite
   steps:
     - run: |
-        echo "Update me with the necessary commands"
+        run -B package --file pom.xml
       shell: bash
