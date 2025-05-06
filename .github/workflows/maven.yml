@@ -16,7 +16,7 @@ on:
 
 env:
   docker_image: academy
-  docker_tag:
+  docker_tag: 'latest'
 
 jobs:
   build:
