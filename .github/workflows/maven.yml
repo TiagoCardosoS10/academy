@@ -37,6 +37,8 @@ jobs:
       with:
         image_name: $docker_image
         tag_name: $docker_tag
+    - name: Save the Docker build
+      run: docker save -o $docker_image.tar  $docker_image:$docker_tag
 
   listImage:
     runs-on: ubuntu-latest
