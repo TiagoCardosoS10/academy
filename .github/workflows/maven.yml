@@ -1,11 +1,3 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 name: Java CI with Maven
 
 on:
@@ -16,7 +8,7 @@ on:
 
 env:
   docker_image: academy
-  docker_tag: 'latest'
+  docker_tag: latest
 
 jobs:
   build:
@@ -46,6 +38,18 @@ jobs:
         name: ${{env.docker_image}}
         path: ${{env.docker_image}}.tar
 
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ vars.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Push to Docker Hub
+      uses: ./.github/actions/docker_push
+      with:
+        docker_image: 'academy:latest'
+        docker_username: ${{ vars.DOCKERHUB_USERNAME }}
+
   listImage:
     runs-on: ubuntu-latest
     steps:
@@ -57,5 +61,4 @@ jobs:
       - run: docker load -i ${{env.docker_image}}.tar
       - name: Docker image list
         run: docker image ls
-
     needs: build
