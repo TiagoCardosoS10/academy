@@ -11,7 +11,7 @@ env:
   docker_tag: latest
 
 jobs:
-  post:
+  build:
     runs-on: ubuntu-latest
     container: node:20-bookworm-slim
     services:
@@ -26,9 +26,6 @@ jobs:
           --health-retries 5
         ports:
           - 5432:5432
-
-  build:
-    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 17
