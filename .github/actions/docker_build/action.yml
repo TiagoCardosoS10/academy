@@ -8,11 +8,11 @@ inputs:
   image_name:
     description: "Image name"
     required: true
-    default:
+    default: ""
   tag_name:
     description: "Tag name"
     required: false
-    default:
+    default: """
 runs:
   using: composite
   steps:
@@ -22,6 +22,6 @@ runs:
         else
           export TAG="${{inputs.tag_name}}"
         fi
-        docker build . --file ${{inputs.path_dockerfile}} --tag ${{env.TAG}}:$(date +%s)
+        docker build . --file ${{inputs.path_dockerfile}} --tag $TAG:$(date +%s)
         docker image ls
       shell: bash
