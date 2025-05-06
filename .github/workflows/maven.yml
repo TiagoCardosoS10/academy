@@ -15,15 +15,6 @@ on:
     branches: [ "main" ]
 
 jobs:
-  listImage:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Docker image list
-        run: docker image ls
-
-
-
   build:
     runs-on: ubuntu-latest
     steps:
@@ -42,3 +33,10 @@ jobs:
       with:
         image_name: academy
 
+  listImage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Docker image list
+        run: docker image ls
+    needs: build
