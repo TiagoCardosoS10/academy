@@ -33,5 +33,5 @@ jobs:
     - name: Docker build
       uses: ./.github/actions/docker_build
       with:
-        tag_name: "academy"
+        tag_name: academy
 
