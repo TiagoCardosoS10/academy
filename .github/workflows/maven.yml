@@ -1,12 +1,18 @@
 name: Java CI with Maven
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
   workflow_dispatch:
-
+    inputs:
+      environment:
+        description: 'Environment'
+        required: true
+        default: 'Test'
+        type: choice
+        options:
+          - Test
+          - Int
+          - E2E
+          - Prod
 env:
   docker_image: academy
   docker_tag: latest
@@ -68,6 +74,7 @@ jobs:
 
   listImage:
     runs-on: ubuntu-latest
+    environment: ${{inputs.environment}}
     steps:
       - name: Download All Artifacts
         uses: actions/download-artifact@v4
