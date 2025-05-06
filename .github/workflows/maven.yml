@@ -13,12 +13,13 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: node:20-bookworm-slim
     services:
       postgres:
         image: postgres
         env:
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: academy
+          POSTGRES_PASSWORD: academy
+          POSTGRES_DB: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -26,6 +27,7 @@ jobs:
           --health-retries 5
         ports:
           - 5432:5432
+
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 17
