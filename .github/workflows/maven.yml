@@ -1,5 +1,5 @@
 name: Java CI with Maven
-
+run-name: Docker build and push to ${{inputs.environment}}
 on:
   workflow_dispatch:
     inputs:
@@ -13,9 +13,13 @@ on:
           - Int
           - E2E
           - Prod
+      tag:
+        description: 'Image tag name'
+        required: false
+        default: 'latest'
 env:
   docker_image: academy
-  docker_tag: latest
+  docker_tag: ${{inputs.tag}}-${{inputs.environment}}
 
 jobs:
   build:
