@@ -11,6 +11,22 @@ env:
   docker_tag: latest
 
 jobs:
+  post:
+    runs-on: ubuntu-latest
+    container: node:20-bookworm-slim
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -48,7 +64,7 @@ jobs:
       uses: ./.github/actions/docker_push
       with:
         docker_image:  ${{env.docker_image}}:${{env.docker_tag}}
-        docker_username: ${{ secrets.DOCKERHUB_USERNAME }}
+        docker_username: ${{secrets.DOCKERHUB_USERNAME}}
 
   listImage:
     runs-on: ubuntu-latest
