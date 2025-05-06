@@ -54,6 +54,7 @@ jobs:
         with:
           name: ${{env.docker_image}}
       - uses: actions/download-artifact@v4
+      - run: docker load -i ${{env.docker_image}}.tar
       - name: Docker image list
         run: docker image ls
 
