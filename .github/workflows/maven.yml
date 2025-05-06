@@ -15,10 +15,17 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
-
+  listImage:
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Docker image list
+        run: docker image ls
 
+
+
+  build:
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 17
@@ -33,5 +40,5 @@ jobs:
     - name: Docker build
       uses: ./.github/actions/docker_build
       with:
-        tag_name: academy
+        image_name: academy
 
